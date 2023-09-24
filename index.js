@@ -21,6 +21,9 @@
 //Llamamos a Server
 const Server = require ("./models/server");
 
+//Agregamos el .env
+require ("dotenv").config ();
+
 //Para poder usar serve debemos crear una variable que guaardara todos los metodos que yo creo en server
 const server = new Server();
 
