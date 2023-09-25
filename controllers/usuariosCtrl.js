@@ -1,6 +1,10 @@
 const {response, request} = require("express");
 
+//importar el  schem usuario
+const Usuario = require("../models/usuario")
+
 //Peticion GET
+//datos de mi esquema del servidor
 const usuariosGet = (req = request, res = response) => {
     const {apiKey, limit} = req.query;
 
@@ -12,12 +16,19 @@ const usuariosGet = (req = request, res = response) => {
 };
 
 //POST
-const usuariosPost = (req = request, res = response) => {
-    const body = req.body;
+//datos que recibo del front
+const usuariosPost = async (req = request, res = response) => {
+    const datos = req.body;
+    const {nombre, correo, password, rol} = datos; //FRONT
+
+    const usuario = new Usuario ({nombre, correo, password, rol}) //BACK
+
+    //Guardar datos en BASE DE DATOS
+await usuario.save();
 
     res.json ({
+        usuario,
         mensaje: "envio el mensaje",
-        body,
     });
 };
 
